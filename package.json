@@ -1,0 +1,70 @@
+{
+  "name": "checklyst-crna",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts-ts start",
+    "eject": "react-native-scripts-ts eject",
+    "android": "react-native-scripts-ts android",
+    "ios": "react-native-scripts-ts ios",
+    "test": "jest",
+    "lint": "tslint 'src/**/*.{ts.tsx}'"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "useBabelrc": true
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "preset": "jest-expo",
+    "testMatch": [
+      "**/__tests__/**/*.[tj]s?(x)",
+      "**/?(*.)(spec|test).[tj]s?(x)"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  },
+  "dependencies": {
+    "expo": "^27.0.1",
+    "react": "16.3.1",
+    "react-native": "~0.55.2",
+    "react-native-elements": "^1.0.0-beta5",
+    "react-native-sortable-listview": "^0.2.8",
+    "react-navigation": "^2.11.2",
+    "unstated": "^2.1.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/expo": "^27.0.7",
+    "@types/expo__vector-icons": "^6.2.3",
+    "@types/jest": "^22.2.3",
+    "@types/react": "^16.4.9",
+    "@types/react-native": "^0.56.7",
+    "@types/react-navigation": "^2.0.15",
+    "@types/react-test-renderer": "^16.0.1",
+    "@types/uuid": "^3.4.3",
+    "jest-expo": "~27.0.0",
+    "prettier": "^1.14.2",
+    "react-native-scripts-ts": "1.15.0",
+    "react-native-typescript-transformer": "^1.2.3",
+    "react-test-renderer": "16.3.1",
+    "reactotron-react-native": "^2.0.0",
+    "ts-jest": "^22.4.6",
+    "tslib": "^1.9.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
+    "tslint-config-standard": "^7.1.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^2.8.3"
+  }
+}
