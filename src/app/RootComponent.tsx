@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import { AsyncStorage, Text } from 'react-native'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
-import { Font } from 'expo'
 import { FontAwesome } from '@expo/vector-icons'
 import { Provider } from 'unstated'
 
@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen'
 import CheckLystsScreen from '../screens/CheckLystsScreen'
 import ItemsContainer from '../state/ItemsContainer'
 import LystDetailScreen from '../screens/LystDetailScreen'
+import AuthScreen from '../screens/AuthScreen'
 
 const LystStack = createStackNavigator({
   Saved: CheckLystsScreen,
@@ -47,18 +48,67 @@ const TabScreens = createBottomTabNavigator(
   }
 )
 
+const AuthStack = createStackNavigator(
+  {
+    Auth: AuthScreen,
+    Home: TabScreens,
+  },
+  {
+    navigationOptions: () => ({
+      header: null,
+    }),
+  }
+)
+
 const items = new ItemsContainer()
 
-export default class RootComponent extends Component {
-  // public componentDidMount() {
-  //   Font.loadAsync({
-  //     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-  //   })
-  // }
+interface IState {
+  loading: boolean
+  isAuthenticated: boolean
+}
+
+export default class RootComponent extends Component<null, IState> {
+  public state = {
+    loading: true,
+    isAuthenticated: false,
+  }
+
+  public async componentDidMount() {
+    try {
+      const tokens = await AsyncStorage.multiGet(['accessToken', 'refreshToken'])
+      const aToken = tokens[0][1]
+      const rToken = tokens[1][1]
+
+      if (!aToken || !rToken) {
+        this.setState(() => ({
+          loading: false,
+          isAuthenticated: false,
+        }))
+      } else {
+        this.setState(() => ({
+          loading: false,
+          isAuthenticated: true,
+        }))
+      }
+    } catch (err) {
+      this.setState(() => ({
+        loading: false,
+        isAuthenticated: false,
+      }))
+    }
+  }
+
   public render() {
+    const { loading, isAuthenticated } = this.state
     return (
       <Provider inject={[items]}>
-        <TabScreens />
+        {loading ? (
+          <Text style={{ color: 'dodgerblue' }}>Loading...</Text>
+        ) : isAuthenticated ? (
+          <TabScreens />
+        ) : (
+          <AuthStack />
+        )}
       </Provider>
     )
   }
