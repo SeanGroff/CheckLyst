@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, StyleSheet, View } from 'react-native'
+import { AsyncStorage, Button, StyleSheet, View } from 'react-native'
 import { AuthSession } from 'expo'
 
 import { SERVER_URI } from 'react-native-dotenv'
@@ -8,6 +8,11 @@ export default class AuthScreen extends React.Component {
   private _handleAuthPress = async () => {
     const redirectUrl = AuthSession.getRedirectUrl()
     const result = await AuthSession.startAsync({ authUrl: `${SERVER_URI}/auth/google` })
+
+    if (result) {
+      await AsyncStorage.setItem('accessToken', result.params.token)
+      await AsyncStorage.setItem('refreshToken', result.params.refresh)
+    }
   }
 
   public render() {
