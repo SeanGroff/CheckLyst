@@ -3,6 +3,7 @@ import { TextInput, Text, TextStyle, View, ViewStyle } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { Button } from 'react-native-elements'
 import randomUuid from 'uuid/v4'
+import Swipeout from 'react-native-swipeout'
 import SortableListView from 'react-native-sortable-listview'
 
 import CLButton from '../components/Button'
@@ -135,16 +136,40 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
     }))
   }
 
+  private handleComplete = ({ item }) => {
+    console.log({ item })
+  }
+
+  private handleDelete = ({ item }) => {
+    console.log({ item })
+  }
+
   private renderRow = ({ row, sortHandlers }: IRowActions) => {
+    const swipeButtons = [
+      {
+        backgroundColor: 'limegreen',
+        text: 'complete',
+        color: 'white',
+        onPress: () => this.handleComplete({ item: row }),
+      },
+      {
+        text: 'delete',
+        backgroundColor: 'red',
+        color: 'white',
+        onPress: () => this.handleDelete({ item: row }),
+      },
+    ]
     return (
-      <Button
-        title={row.name}
-        titleStyle={{ color: 'dodgerblue' }}
-        containerStyle={{ margin: 8 }}
-        buttonStyle={{ borderColor: 'dodgerblue', borderWidth: 1, backgroundColor: 'white' }}
-        onPress={() => this.handleItemPress(row)}
-        {...sortHandlers}
-      />
+      <Swipeout autoClose right={swipeButtons}>
+        <Button
+          title={row.name}
+          titleStyle={{ color: 'dodgerblue' }}
+          containerStyle={{ margin: 8 }}
+          buttonStyle={{ borderColor: 'dodgerblue', borderWidth: 1, backgroundColor: 'white' }}
+          onPress={() => this.handleItemPress(row)}
+          {...sortHandlers}
+        />
+      </Swipeout>
     )
   }
 

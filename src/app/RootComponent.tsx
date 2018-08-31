@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { AsyncStorage, Text } from 'react-native'
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import {
+  createBottomTabNavigator,
+  createDrawerNavigator,
+  createStackNavigator,
+} from 'react-navigation'
 import { FontAwesome } from '@expo/vector-icons'
 import { Provider } from 'unstated'
 
@@ -60,6 +64,11 @@ const AuthStack = createStackNavigator(
   }
 )
 
+const DrawerNav = createDrawerNavigator({
+  Home: TabScreens,
+  Saved: LystStack,
+})
+
 const items = new ItemsContainer()
 
 interface IState {
@@ -105,7 +114,7 @@ export default class RootComponent extends Component<null, IState> {
         {loading ? (
           <Text style={{ color: 'dodgerblue' }}>Loading...</Text>
         ) : isAuthenticated ? (
-          <TabScreens />
+          <DrawerNav />
         ) : (
           <AuthStack />
         )}
