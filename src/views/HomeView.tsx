@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { TextInput, Text, TextStyle, View, ViewStyle } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
+import { Button } from 'react-native-elements'
 import randomUuid from 'uuid/v4'
+import SortableListView from 'react-native-sortable-listview'
 
-import Button from '../components/Button'
-import ItemsList from '../components/ItemsList'
+import CLButton from '../components/Button'
 import { IItem, ICheckLyst } from '../types/items'
 
 interface InterfaceProps {
@@ -26,6 +27,29 @@ interface InterfaceStyles {
   itemsWrapper: ViewStyle
 }
 
+interface IOrder {
+  from: number
+  to: number
+  row: { data: IItem }
+}
+
+interface ISortHandlers {
+  sortHandlers: {
+    onLongPress(): void
+    onPressIn(): void
+    onPressOut(): void
+  }
+}
+
+interface IRowActions {
+  row: IItem
+  sortHandlers: {
+    onLongPress(): void
+    onPressIn(): void
+    onPressOut(): void
+  }
+}
+
 export default class HomeScreen extends Component<InterfaceProps, InterfaceState> {
   public state: InterfaceState = {
     inputValue: '',
@@ -34,6 +58,7 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
     listItems: [],
     newLyst: null,
   }
+
   private inputNewItem: React.RefObject<TextInput> = React.createRef()
   private inputNewName: React.RefObject<TextInput> = React.createRef()
 
@@ -102,6 +127,27 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
     this.setState(() => ({ inputNameValue }))
   }
 
+  private handleRowMoved = ({ from, to, row }: IOrder) => {
+    const remainingItems = this.state.listItems.filter((item, index) => index !== from)
+
+    this.setState(() => ({
+      listItems: [...remainingItems.slice(0, to), row.data, ...remainingItems.slice(to)],
+    }))
+  }
+
+  private renderRow = ({ row, sortHandlers }: IRowActions) => {
+    return (
+      <Button
+        title={row.name}
+        titleStyle={{ color: 'dodgerblue' }}
+        containerStyle={{ margin: 8 }}
+        buttonStyle={{ borderColor: 'dodgerblue', borderWidth: 1, backgroundColor: 'white' }}
+        onPress={() => this.handleItemPress(row)}
+        {...sortHandlers}
+      />
+    )
+  }
+
   public render() {
     return (
       <SafeAreaView style={styles.home}>
@@ -112,7 +158,6 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
           <View>
             <TextInput
               style={[{ display: this.state.nameHidden ? 'none' : 'flex' }, styles.inputNewItem]}
-              autoFocus
               enablesReturnKeyAutomatically
               maxLength={60}
               placeholder="e.g. Grocery Store List"
@@ -133,9 +178,9 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
               value={this.state.inputValue}
             />
             <View style={{ opacity: this.state.nameHidden ? 1 : 0 }}>
-              <Button disabled={!this.state.inputValue.length} onPress={this.handleItemSubmit}>
+              <CLButton disabled={!this.state.inputValue.length} onPress={this.handleItemSubmit}>
                 Add
-              </Button>
+              </CLButton>
             </View>
           </View>
         </View>
@@ -143,17 +188,20 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
           <Text style={{ fontSize: 24, textAlign: 'center' }}>
             {this.state.newLyst && this.state.newLyst.name ? this.state.newLyst.name : ''}
           </Text>
-          <ItemsList
-            handlePress={this.handleItemPress}
-            items={this.state.listItems && this.state.listItems.length ? this.state.listItems : []}
+          <SortableListView
+            data={this.state.listItems && this.state.listItems.length ? this.state.listItems : []}
+            onRowMoved={({ from, to, row }: IOrder) => this.handleRowMoved({ from, to, row })}
+            renderRow={(row: IItem, { sortHandlers }: ISortHandlers) =>
+              this.renderRow({ row, sortHandlers })
+            }
           />
         </View>
         <View
           style={{ flex: 1, justifyContent: 'flex-end', opacity: this.state.nameHidden ? 1 : 0 }}
         >
-          <Button disabled={!this.state.newLyst} isSubmit onPress={this.handleSavePress}>
+          <CLButton disabled={!this.state.newLyst} isSubmit onPress={this.handleSavePress}>
             Save CheckLyst
-          </Button>
+          </CLButton>
         </View>
       </SafeAreaView>
     )
