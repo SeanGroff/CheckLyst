@@ -1,5 +1,5 @@
 {
-  "name": "checklyst",
+  "name": "checklyst-crna",
   "version": "0.1.0",
   "private": true,
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",

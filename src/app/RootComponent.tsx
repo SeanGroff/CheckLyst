@@ -112,7 +112,11 @@ export default class RootComponent extends Component<null, IState> {
     return (
       <Provider inject={[items]}>
         {loading ? (
-          <Text style={{ color: 'dodgerblue' }}>Loading...</Text>
+          <Text
+            style={{ justifyContent: 'center', alignItems: 'center', flex: 1, color: 'dodgerblue' }}
+          >
+            Loading...
+          </Text>
         ) : isAuthenticated ? (
           <DrawerNav />
         ) : (
