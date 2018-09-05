@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Text } from 'react-native'
 import {
   createBottomTabNavigator,
   createDrawerNavigator,
   createStackNavigator,
+  createSwitchNavigator,
 } from 'react-navigation'
 import { FontAwesome } from '@expo/vector-icons'
 import { Provider } from 'unstated'
@@ -14,6 +14,7 @@ import CheckLystsScreen from '../screens/CheckLystsScreen'
 import ItemsContainer from '../state/ItemsContainer'
 import LystDetailScreen from '../screens/LystDetailScreen'
 import AuthScreen from '../screens/AuthScreen'
+import AuthLoadingScreen from '../screens/AuthLoadingScreen'
 
 const LystStack = createStackNavigator({
   Saved: CheckLystsScreen,
@@ -64,65 +65,23 @@ const AuthStack = createStackNavigator(
   }
 )
 
-const DrawerNav = createDrawerNavigator({
+const DrawerNavStack = createDrawerNavigator({
   Home: TabScreens,
   Saved: LystStack,
 })
 
+const SwitchStack = createSwitchNavigator({
+  Loading: AuthLoadingScreen,
+  App: DrawerNavStack,
+  Auth: AuthStack,
+})
+
 const items = new ItemsContainer()
 
-interface IState {
-  loading: boolean
-  isAuthenticated: boolean
-}
-
-export default class RootComponent extends Component<null, IState> {
-  public state = {
-    loading: true,
-    isAuthenticated: false,
-  }
-
-  public async componentDidMount() {
-    try {
-      const tokens = await AsyncStorage.multiGet(['accessToken', 'refreshToken'])
-      const aToken = tokens[0][1]
-      const rToken = tokens[1][1]
-
-      if (!aToken || !rToken) {
-        this.setState(() => ({
-          loading: false,
-          isAuthenticated: false,
-        }))
-      } else {
-        this.setState(() => ({
-          loading: false,
-          isAuthenticated: true,
-        }))
-      }
-    } catch (err) {
-      this.setState(() => ({
-        loading: false,
-        isAuthenticated: false,
-      }))
-    }
-  }
-
-  public render() {
-    const { loading, isAuthenticated } = this.state
-    return (
-      <Provider inject={[items]}>
-        {loading ? (
-          <Text
-            style={{ justifyContent: 'center', alignItems: 'center', flex: 1, color: 'dodgerblue' }}
-          >
-            Loading...
-          </Text>
-        ) : isAuthenticated ? (
-          <DrawerNav />
-        ) : (
-          <AuthStack />
-        )}
-      </Provider>
-    )
-  }
+export default function RootComponent() {
+  return (
+    <Provider inject={[items]}>
+      <SwitchStack />
+    </Provider>
+  )
 }

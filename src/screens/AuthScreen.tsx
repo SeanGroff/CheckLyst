@@ -16,7 +16,7 @@ export default class AuthScreen extends React.Component {
           ['refreshToken', result.params.refresh],
         ])
 
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('App')
       }
     } catch (err) {
       Alert.alert('Failed to authenticate')
