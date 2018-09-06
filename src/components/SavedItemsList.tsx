@@ -4,6 +4,7 @@ import { Badge } from 'react-native-elements'
 import SortableListView from 'react-native-sortable-listview'
 
 import { ICheckLyst } from '../types/items'
+import { INavProps } from '../types/navigation'
 
 interface InterfaceStyles {
   checkLyst: ViewStyle
@@ -18,13 +19,13 @@ interface ISortHandlers {
 
 interface IProps {
   checkLysts: ICheckLyst[]
-  navigation: { navigate(): void }
+  navigation: INavProps
   reorder(from: number, to: number, checkLyst: ICheckLyst): void
 }
 
 interface IRowProps {
   checkLyst: ICheckLyst
-  navigation: { navigate(): void }
+  navigation: INavProps
   sortHandlers: ISortHandlers
 }
 

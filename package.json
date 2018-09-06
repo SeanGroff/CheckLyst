@@ -45,6 +45,7 @@
     "react-native-sortable-listview": "^0.2.8",
     "react-native-swipeout": "^2.3.6",
     "react-navigation": "^2.11.2",
+    "react-navigation-header-buttons": "^2.1.0",
     "unstated": "^2.1.1",
     "uuid": "^3.3.2"
   },

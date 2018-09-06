@@ -5,9 +5,9 @@ import { SafeAreaView } from 'react-navigation'
 
 import ItemsContainer from '../state/ItemsContainer'
 import SavedItemsList from '../components/SavedItemsList'
-import { IItem, ICheckLyst } from '../types/items'
+import { INavProps } from '../types/navigation'
 
-export default class CheckLysts extends Component {
+export default class CheckLysts extends Component<INavProps, null> {
   public render() {
     return (
       <Subscribe to={[ItemsContainer]}>

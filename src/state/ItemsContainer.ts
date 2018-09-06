@@ -1,5 +1,5 @@
 import { Container } from 'unstated'
-import { IItem, ICheckLyst } from '../types/items'
+import { ICheckLyst } from '../types/items'
 
 interface IState {
   savedCheckLysts: ICheckLyst[]

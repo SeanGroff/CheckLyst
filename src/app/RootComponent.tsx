@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   createBottomTabNavigator,
-  createDrawerNavigator,
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation'
@@ -21,7 +20,7 @@ const LystStack = createStackNavigator({
   LystDetail: LystDetailScreen,
 })
 
-const TabScreens = createBottomTabNavigator(
+const TabStack = createBottomTabNavigator(
   {
     Home: HomeScreen,
     Saved: LystStack,
@@ -56,7 +55,7 @@ const TabScreens = createBottomTabNavigator(
 const AuthStack = createStackNavigator(
   {
     Auth: AuthScreen,
-    Home: TabScreens,
+    Home: TabStack,
   },
   {
     navigationOptions: () => ({
@@ -65,14 +64,9 @@ const AuthStack = createStackNavigator(
   }
 )
 
-const DrawerNavStack = createDrawerNavigator({
-  Home: TabScreens,
-  Saved: LystStack,
-})
-
 const SwitchStack = createSwitchNavigator({
   Loading: AuthLoadingScreen,
-  App: DrawerNavStack,
+  App: TabStack,
   Auth: AuthStack,
 })
 

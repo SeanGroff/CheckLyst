@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { ActivityIndicator, AsyncStorage, View } from 'react-native'
 
-export default class AuthLoadingScreen extends Component {
+import { INavProps } from '../types/navigation'
+
+export default class AuthLoadingScreen extends Component<INavProps, null> {
   public async componentDidMount() {
     try {
       const { navigation } = this.props
@@ -15,7 +17,7 @@ export default class AuthLoadingScreen extends Component {
         navigation.navigate('App')
       }
     } catch (err) {
-      navigation.navigate('Auth')
+      this.props.navigation.navigate('Auth')
     }
   }
   public render() {
