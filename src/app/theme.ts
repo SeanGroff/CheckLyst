@@ -1,7 +1,9 @@
 export default {
   palette: {
-    white: '#ffffff', // fix
-    black: '#000000', // fix
+    white: '#ffffff',
+    black: '#111111',
+    lightGray: '#D2D6DC',
+    darkGray: '#79797C',
     red: '#ff3b30',
     orange: '#ff9000',
     yellow: '#ffcc00',

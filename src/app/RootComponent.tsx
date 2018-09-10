@@ -14,6 +14,7 @@ import ItemsContainer from '../state/ItemsContainer'
 import LystDetailScreen from '../screens/LystDetailScreen'
 import AuthScreen from '../screens/AuthScreen'
 import AuthLoadingScreen from '../screens/AuthLoadingScreen'
+import theme from '../app/theme'
 
 const LystStack = createStackNavigator({
   Saved: CheckLystsScreen,
@@ -46,8 +47,8 @@ const TabStack = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'dodgerblue',
-      inactiveTintColor: 'lightgray',
+      activeTintColor: theme.palette.purple,
+      inactiveTintColor: theme.palette.lightGray,
     },
   }
 )

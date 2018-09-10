@@ -5,6 +5,7 @@ import SortableListView from 'react-native-sortable-listview'
 
 import { ICheckLyst } from '../types/items'
 import { INavProps } from '../types/navigation'
+import theme from '../app/theme'
 
 interface InterfaceStyles {
   checkLyst: ViewStyle
@@ -61,14 +62,14 @@ const styles: InterfaceStyles = {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: 'dodgerblue',
+    borderColor: theme.palette.purple,
     borderRadius: 5,
     marginTop: 5,
     marginBottom: 5,
     padding: 10,
   },
   itemText: {
-    color: 'dodgerblue',
+    color: theme.palette.purple,
     flex: 2,
   },
 }

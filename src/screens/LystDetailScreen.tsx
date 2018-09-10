@@ -5,9 +5,17 @@ import { MaterialIcons } from '@expo/vector-icons'
 
 import { INavProps } from '../types/navigation'
 import { IItem } from '../types/items'
+import theme from '../app/theme'
 
 function FriendsIcon(props: any) {
-  return <HeaderButton {...props} IconComponent={MaterialIcons} iconSize={32} color="dodgerblue" />
+  return (
+    <HeaderButton
+      {...props}
+      IconComponent={MaterialIcons}
+      iconSize={32}
+      color={theme.palette.purple}
+    />
+  )
 }
 
 export default class LystDetailScreen extends Component<INavProps, null> {
@@ -32,13 +40,13 @@ export default class LystDetailScreen extends Component<INavProps, null> {
           <View
             key={item.id}
             style={{
-              backgroundColor: 'lightgrey',
-              borderBottomColor: 'white',
+              backgroundColor: theme.palette.lightGray,
+              borderBottomColor: theme.palette.white,
               borderBottomWidth: 1,
               padding: 15,
             }}
           >
-            <Text style={{ color: 'dodgerblue' }}>{item.name}</Text>
+            <Text style={{ color: theme.palette.purple }}>{item.name}</Text>
           </View>
         ))}
       </View>

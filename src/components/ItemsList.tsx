@@ -1,6 +1,8 @@
 import React from 'react'
 import { FlatList, Text, TouchableOpacity } from 'react-native'
 
+import theme from '../app/theme'
+
 interface InterfaceItem {
   id: string
   name: string
@@ -38,13 +40,13 @@ export default function ItemsList({ handlePress, items }: InterfaceProps) {
 const styles = {
   item: {
     borderWidth: 2,
-    borderColor: 'dodgerblue',
+    borderColor: theme.palette.purple,
     borderRadius: 5,
     marginTop: 5,
     marginBottom: 5,
     padding: 10,
   },
   itemText: {
-    color: 'dodgerblue',
+    color: theme.palette.purple,
   },
 }

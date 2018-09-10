@@ -8,6 +8,7 @@ import SortableListView from 'react-native-sortable-listview'
 
 import CLButton from '../components/Button'
 import { IItem, ICheckLyst } from '../types/items'
+import theme from '../app/theme'
 
 interface InterfaceProps {
   create(checkLyst: ICheckLyst): void
@@ -163,9 +164,13 @@ export default class HomeScreen extends Component<InterfaceProps, InterfaceState
       <Swipeout autoClose right={swipeButtons}>
         <Button
           title={row.name}
-          titleStyle={{ color: 'dodgerblue' }}
+          titleStyle={{ color: theme.palette.purple }}
           containerStyle={{ margin: 8 }}
-          buttonStyle={{ borderColor: 'dodgerblue', borderWidth: 1, backgroundColor: 'white' }}
+          buttonStyle={{
+            borderColor: theme.palette.purple,
+            borderWidth: 1,
+            backgroundColor: 'white',
+          }}
           onPress={() => this.handleItemPress(row)}
           {...sortHandlers}
         />
@@ -245,7 +250,7 @@ const styles: InterfaceStyles = {
   },
   inputNewItem: {
     height: 40,
-    borderColor: 'dodgerblue',
+    borderColor: theme.palette.purple,
     borderWidth: 2,
     borderRadius: 10,
     marginTop: 10,

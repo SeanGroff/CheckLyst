@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ActivityIndicator, AsyncStorage, View } from 'react-native'
 
 import { INavProps } from '../types/navigation'
+import theme from '../app/theme'
 
 export default class AuthLoadingScreen extends Component<INavProps, null> {
   public async componentDidMount() {
@@ -23,7 +24,7 @@ export default class AuthLoadingScreen extends Component<INavProps, null> {
   public render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="dodgerblue" />
+        <ActivityIndicator size="large" color={theme.palette.purple} />
       </View>
     )
   }

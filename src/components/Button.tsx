@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button } from 'react-native-elements'
 
+import theme from '../app/theme'
+
 interface InterfaceButton {
   children: string
   disabled?: boolean
@@ -20,12 +22,12 @@ export default function CLButton({
     <Button
       disabled={disabled}
       buttonStyle={{
-        backgroundColor: isSubmit ? 'limegreen' : 'dodgerblue',
+        backgroundColor: theme.palette.purple,
       }}
       icon={{
         name: isSubmit ? 'send' : 'add',
         size: 28,
-        color: 'white',
+        color: theme.palette.white,
       }}
       onPress={onPress}
       onLongPress={onLongPress}
